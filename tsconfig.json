@@ -31,13 +31,13 @@
   },
   "compilerOptions": {
     "moduleResolution": "node",
-    "outDir": "./build/app",
+    "outDir": "./dist/",
     "baseUrl": "./",
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "module": "None",
+    "module": "ES2020",
     "importHelpers": true,
     "typeRoots": [
       "node_modules/@types"

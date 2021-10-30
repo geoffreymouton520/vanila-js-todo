@@ -4,13 +4,14 @@
   "description": "A task tracker built with vanila typescript",
   "main": "index.html",
   "scripts": {
-    "ts:build": "tsc --project tsconfig.json",
-    "ts:watch": "tsc --project tsconfig.json --watch"
+    "build": "webpack"
   },
   "author": "geoffrey mouton",
   "license": "ISC",
   "devDependencies": {
     "@tsconfig/node14": "^1.0.1",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.4.4",
     "webpack": "^5.61.0",
     "webpack-cli": "^4.9.1"
   }
