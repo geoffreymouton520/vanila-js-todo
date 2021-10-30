@@ -1,0 +1,11 @@
+{
+  "name": "vanila-js-todo",
+  "version": "1.0.0",
+  "description": "A task tracker built with vanila typescript",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "geoffrey mouton",
+  "license": "ISC"
+}
