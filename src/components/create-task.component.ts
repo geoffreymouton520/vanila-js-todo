@@ -1,13 +1,28 @@
+import {TaskModel} from "../models/task.model";
+import {TaskStatusEnum} from "../models/task-status.enum";
+import {TaskService} from "../services/task.service";
+
 export class CreateTaskComponent {
+    private form: HTMLFormElement;
     private title: HTMLInputElement;
+    private description: HTMLTextAreaElement;
+    private startDate: HTMLInputElement;
+    private endDate: HTMLInputElement;
     private submitButton: HTMLButtonElement;
 
-    constructor() {
+    constructor(private readonly taskService: TaskService) {
     }
 
     public init(): void {
+        this.form = document.getElementById('create-task') as HTMLFormElement;
+
         this.title = document.getElementById('create-task-title') as HTMLInputElement;
+        this.description = document.getElementById('create-task-description') as HTMLTextAreaElement;
+        this.startDate = document.getElementById('create-task-start-date') as HTMLInputElement;
+        this.endDate = document.getElementById('create-task-end-date') as HTMLInputElement;
+
         this.submitButton = document.getElementById('create-task-submit') as HTMLButtonElement;
+
         this.submitButton.addEventListener('click', (ev: MouseEvent) => {
             this.submit(ev);
         });
@@ -15,9 +30,13 @@ export class CreateTaskComponent {
 
     private submit(ev: MouseEvent): void {
         ev.preventDefault();
-
-        this.title = document.getElementById('create-task-title') as HTMLInputElement;
-        console.log('The form was submitted:', this.title.value);
-        console.log('Title element:', this.title);
+        const task = new TaskModel(this.title.value,
+            this.description.value,
+            TaskStatusEnum.Todo,
+            new Date(this.startDate.value),
+            new Date(this.endDate.value));
+        this.taskService.create(task);
+        console.log('The form was submitted:', task);
+        this.form.reset();
     }
 }
