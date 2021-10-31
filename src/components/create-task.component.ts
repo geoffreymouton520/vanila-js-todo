@@ -14,7 +14,7 @@ export class CreateTaskComponent {
     }
 
     public init(): void {
-        this.form = document.getElementById('create-task') as HTMLFormElement;
+        this.form = document.getElementById('create-task-form') as HTMLFormElement;
 
         this.title = document.getElementById('create-task-title') as HTMLInputElement;
         this.description = document.getElementById('create-task-description') as HTMLTextAreaElement;
