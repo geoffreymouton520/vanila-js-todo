@@ -1,8 +1,9 @@
 import {TaskModel} from "../models/task.model";
 import {TaskStatusEnum} from "../models/task-status.enum";
 import {TaskService} from "../services/task.service";
+import {IComponent} from "./component";
 
-export class CreateTaskComponent {
+export class CreateTaskComponent implements IComponent{
     private form: HTMLFormElement;
     private title: HTMLInputElement;
     private description: HTMLTextAreaElement;
@@ -10,7 +11,7 @@ export class CreateTaskComponent {
     private endDate: HTMLInputElement;
     private submitButton: HTMLButtonElement;
 
-    constructor(private readonly taskService: TaskService) {
+    public constructor(private readonly taskService: TaskService) {
     }
 
     public init(): void {

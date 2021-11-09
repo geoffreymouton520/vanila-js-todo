@@ -70,4 +70,11 @@ export class TaskModel {
     public cancel(): void {
         this._status = TaskStatusEnum.Cancelled;
     }
+
+    public start() {
+        if(this._status !== TaskStatusEnum.Todo){
+            throw new Error('Invalid task status change. Only tasks with a status of todo can be started.')
+        }
+        this._status = TaskStatusEnum.InProgress;
+    }
 }
