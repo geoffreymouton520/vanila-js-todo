@@ -1,87 +1,87 @@
-$primary-color-dark: #455A64;
-$primary-color: #607D8B;
-$primary-color-light: #CFD8DC;
-$primary-color-text: #FFFFFF;
-$accent-color: #448AFF;
+$primary-color-dark: #455a64;
+$primary-color: #607d8b;
+$primary-color-light: #cfd8dc;
+$primary-color-text: #ffffff;
+$accent-color: #448aff;
 $primary-text-color: #212121;
 $secondary-text-color: #757575;
-$divider-color: #BDBDBD;
+$divider-color: #bdbdbd;
 body {
-  font-family: Arial, sans-serif;
-  color: $primary-text-color;
+    font-family: Arial, sans-serif;
+    color: $primary-text-color;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .card {
-  border: 0.5px solid $divider-color;
-  border-radius: 4px;
-  padding: 0.5em;
+    border: 0.5px solid $divider-color;
+    border-radius: 4px;
+    padding: 0.5em;
 }
 
 .btn {
-  border-radius: 4px;
-  padding: 0.7em;
+    border-radius: 4px;
+    padding: 0.7em;
 }
 
 .row {
-  display: flex;
+    display: flex;
 }
 
 .column {
-  flex: 1;
-  margin: 0.5em;
+    flex: 1;
+    margin: 0.5em;
 }
 
 #create-task {
-  max-width: 500px;
-  width: 100%;
+    max-width: 500px;
+    width: 100%;
 }
 
 form {
-  width: 100%;
-
-  .form-group {
     width: 100%;
 
-    label {
-      width: 100%;
-      margin-top: 0.5em;
-      display: block;
+    .form-group {
+        width: 100%;
+
+        label {
+            width: 100%;
+            margin-top: 0.5em;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            font-size: max(16px, 1em);
+            padding: 0.25em 0.5em;
+            margin-top: 0.5em;
+            background-color: #fff;
+            border: 1px solid $divider-color;
+            border-radius: 4px;
+        }
+
+        textarea {
+            width: 100%;
+            font-size: max(16px, 1em);
+            padding: 0.25em 0.5em;
+            margin-top: 0.5em;
+            background-color: #fff;
+            border: 1px solid $divider-color;
+            border-radius: 4px;
+        }
     }
 
-    input {
-      width: 100%;
-      font-size: max(16px, 1em);
-      padding: 0.25em 0.5em;
-      margin-top: 0.5em;
-      background-color: #fff;
-      border: 1px solid $divider-color;
-      border-radius: 4px;
-    }
+    .form-btn-group {
+        display: flex;
+        margin-top: 0.5em;
+        justify-content: end;
 
-    textarea {
-      width: 100%;
-      font-size: max(16px, 1em);
-      padding: 0.25em 0.5em;
-      margin-top: 0.5em;
-      background-color: #fff;
-      border: 1px solid $divider-color;
-      border-radius: 4px;
+        .btn {
+            margin-left: 0.5em;
+        }
     }
-  }
-
-  .form-btn-group {
-    display: flex;
-    margin-top: 0.5em;
-    justify-content: end;
-
-    .btn {
-      margin-left: 0.5em;
-    }
-  }
 }

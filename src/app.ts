@@ -1,7 +1,7 @@
 import './assets/app.scss';
-import {CreateTaskComponent} from "./components/create-task.component";
-import {TaskService} from "./services/task.service";
-import {TodoTasksComponent} from "./components/todo-tasks.component";
+import { CreateTaskComponent } from './components/create-task.component';
+import { TaskService } from './services/task.service';
+import { TodoTasksComponent } from './components/todo-tasks.component';
 
 const taskService = new TaskService();
 

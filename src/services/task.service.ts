@@ -1,4 +1,4 @@
-import {TaskModel} from "../models/task.model";
+import { TaskModel } from '../models/task.model';
 
 export class TaskService {
     private readonly tasks: Array<TaskModel> = [];
@@ -11,7 +11,6 @@ export class TaskService {
         this.eventsDiv.id = 'task-service';
         this.tasksChangedEvent = new Event(this._tasksChangedEventName);
 
-
         const taskJson = sessionStorage.getItem('tasks');
         if (!taskJson) {
             return;
@@ -19,7 +18,14 @@ export class TaskService {
         const jsonArray: Array<any> = JSON.parse(taskJson);
 
         this.tasks = jsonArray.map((value: any) => {
-            return new TaskModel(value._title, value._description, value._status, value._startDate, value._endDate, value._id);
+            return new TaskModel(
+                value._title,
+                value._description,
+                value._status,
+                value._startDate,
+                value._endDate,
+                value._id
+            );
         });
     }
 
@@ -43,12 +49,15 @@ export class TaskService {
     }
 
     public addTasksChangedListener(callback: () => void): void {
-        this.eventsDiv.addEventListener(this._tasksChangedEventName, callback, false);
+        this.eventsDiv.addEventListener(
+            this._tasksChangedEventName,
+            callback,
+            false
+        );
     }
 
     private sync(): void {
         sessionStorage.setItem('tasks', JSON.stringify(this.tasks));
         this.eventsDiv.dispatchEvent(this.tasksChangedEvent);
     }
-
 }

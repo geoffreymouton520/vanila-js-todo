@@ -1,5 +1,5 @@
-import {TaskStatusEnum} from "./task-status.enum";
-import {v4 as uuid} from 'uuid';
+import { TaskStatusEnum } from './task-status.enum';
+import { v4 as uuid } from 'uuid';
 
 export class TaskModel {
     get endDate(): Date {
@@ -49,8 +49,14 @@ export class TaskModel {
     private _startDate: Date;
     private _endDate: Date;
 
-
-    constructor(title: string, description: string, status: TaskStatusEnum, startDate: Date, endDate: Date, id: string = uuid()) {
+    constructor(
+        title: string,
+        description: string,
+        status: TaskStatusEnum,
+        startDate: Date,
+        endDate: Date,
+        id: string = uuid()
+    ) {
         this._id = id;
         this._title = title;
         this._description = description;
@@ -72,8 +78,10 @@ export class TaskModel {
     }
 
     public start() {
-        if(this._status !== TaskStatusEnum.Todo){
-            throw new Error('Invalid task status change. Only tasks with a status of todo can be started.')
+        if (this._status !== TaskStatusEnum.Todo) {
+            throw new Error(
+                'Invalid task status change. Only tasks with a status of todo can be started.'
+            );
         }
         this._status = TaskStatusEnum.InProgress;
     }

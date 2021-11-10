@@ -1,31 +1,38 @@
-import {TaskService} from "../services/task.service";
-import {IComponent} from "./component";
-import {TaskModel} from "../models/task.model";
-import {TaskStatusEnum} from "../models/task-status.enum";
+import { TaskService } from '../services/task.service';
+import { IComponent } from './component';
+import { TaskModel } from '../models/task.model';
+import { TaskStatusEnum } from '../models/task-status.enum';
 
 export class TodoTasksComponent implements IComponent {
     private list: HTMLDivElement;
 
-    public constructor(private readonly taskService: TaskService) {
-    }
+    public constructor(private readonly taskService: TaskService) {}
 
     public init = (): void => {
-        this.list = document.getElementById('todo-tasks-list') as HTMLDivElement;
+        this.list = document.getElementById(
+            'todo-tasks-list'
+        ) as HTMLDivElement;
         this.taskService.addTasksChangedListener(this.loadTasks);
         this.loadTasks();
-
     };
 
     private loadTasks = () => {
-        const tasks = this.taskService.getAll().filter((value: TaskModel) => value.status === TaskStatusEnum.Todo);
-        const taskCards = tasks.map(TodoTasksComponent.generateTaskCardTemplate);
-
+        const tasks = this.taskService
+            .getAll()
+            .filter((value: TaskModel) => value.status === TaskStatusEnum.Todo);
+        const taskCards = tasks.map(
+            TodoTasksComponent.generateTaskCardTemplate
+        );
 
         this.list.innerHTML = taskCards.join('');
 
-        const startButtons: Array<HTMLButtonElement> = Array.from(document.getElementsByClassName('todo-tasks-list-start') as HTMLCollectionOf<HTMLButtonElement>);
+        const startButtons: Array<HTMLButtonElement> = Array.from(
+            document.getElementsByClassName(
+                'todo-tasks-list-start'
+            ) as HTMLCollectionOf<HTMLButtonElement>
+        );
 
-        startButtons.map(this.initStartButtons)
+        startButtons.map(this.initStartButtons);
     };
 
     private initStartButtons = (button: HTMLButtonElement) => {
@@ -33,11 +40,15 @@ export class TodoTasksComponent implements IComponent {
     };
 
     private startClicked = (ev: MouseEvent): void => {
-        const id = (ev.target as HTMLButtonElement).getAttribute('data-task-id');
+        const id = (ev.target as HTMLButtonElement).getAttribute(
+            'data-task-id'
+        );
         this.startTask(id);
     };
 
-    private static generateTaskCardTemplate = (value: TaskModel): string => `<div class="card">
+    private static generateTaskCardTemplate = (
+        value: TaskModel
+    ): string => `<div class="card">
                     <div>
                         <h4>${value.title}</h4>
                         <div>${value.startDate} - ${value.endDate}</div>
@@ -50,7 +61,6 @@ export class TodoTasksComponent implements IComponent {
                 </div>`;
 
     private startTask = (id: string): void => {
-
         this.taskService.startTask(id);
         console.log('Start task');
     };
