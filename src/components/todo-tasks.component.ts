@@ -6,16 +6,16 @@ import { TaskStatusEnum } from '../models/task-status.enum';
 export class TodoTasksComponent implements IComponent {
   private list: HTMLDivElement;
 
-  public constructor(private readonly taskService: TaskService) {}
+  public constructor(private readonly _taskService: TaskService) {}
 
   public init = (): void => {
     this.list = document.getElementById('todo-tasks-list') as HTMLDivElement;
-    this.taskService.addTasksChangedListener(this.loadTasks);
+    this._taskService.addTasksChangedListener(this.loadTasks);
     this.loadTasks();
   };
 
-  private loadTasks = () => {
-    const tasks = this.taskService
+  private readonly loadTasks = () => {
+    const tasks = this._taskService
       .getAll()
       .filter((value: TaskModel) => value.status === TaskStatusEnum.Todo);
     const taskCards = tasks.map(TodoTasksComponent.generateTaskCardTemplate);
@@ -31,16 +31,20 @@ export class TodoTasksComponent implements IComponent {
     startButtons.map(this.initStartButtons);
   };
 
-  private initStartButtons = (button: HTMLButtonElement) => {
+  private readonly initStartButtons = (button: HTMLButtonElement) => {
     button.addEventListener('click', this.startClicked);
   };
 
-  private startClicked = (ev: MouseEvent): void => {
+  private readonly startClicked = (ev: MouseEvent): void => {
     const id = (ev.target as HTMLButtonElement).getAttribute('data-task-id');
     this.startTask(id);
   };
 
-  private static generateTaskCardTemplate = (
+  private readonly startTask = (id: string): void => {
+    this._taskService.startTask(id);
+  };
+
+  private static readonly generateTaskCardTemplate = (
     value: TaskModel
   ): string => `<div class="card">
                     <div>
@@ -53,9 +57,4 @@ export class TodoTasksComponent implements IComponent {
                         <button class="btn todo-tasks-list-start"  data-task-id="${value.id}">Start</button>
                     </div>
                 </div>`;
-
-  private startTask = (id: string): void => {
-    this.taskService.startTask(id);
-    console.log('Start task');
-  };
 }

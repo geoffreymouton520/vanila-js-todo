@@ -11,7 +11,7 @@ export class CreateTaskComponent implements IComponent {
   private endDate: HTMLInputElement;
   private submitButton: HTMLButtonElement;
 
-  public constructor(private readonly taskService: TaskService) {}
+  public constructor(private readonly _taskService: TaskService) {}
 
   public init(): void {
     this.form = document.getElementById('create-task-form') as HTMLFormElement;
@@ -47,8 +47,7 @@ export class CreateTaskComponent implements IComponent {
       new Date(this.startDate.value),
       new Date(this.endDate.value)
     );
-    this.taskService.create(task);
-    console.log('The form was submitted:', task);
+    this._taskService.create(task);
     this.form.reset();
   }
 }

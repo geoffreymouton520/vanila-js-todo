@@ -2,43 +2,43 @@ import { TaskStatusEnum } from './task-status.enum';
 import { v4 as uuid } from 'uuid';
 
 export class TaskModel {
-  get endDate(): Date {
+  public get endDate(): Date {
     return this._endDate;
   }
 
-  set endDate(value: Date) {
+  public set endDate(value: Date) {
     this._endDate = value;
   }
 
-  get startDate(): Date {
+  public get startDate(): Date {
     return this._startDate;
   }
 
-  set startDate(value: Date) {
+  public set startDate(value: Date) {
     this._startDate = value;
   }
 
-  get status(): TaskStatusEnum {
+  public get status(): TaskStatusEnum {
     return this._status;
   }
 
-  get description(): string {
+  public get description(): string {
     return this._description;
   }
 
-  set description(value: string) {
+  public set description(value: string) {
     this._description = value;
   }
 
-  get title(): string {
+  public get title(): string {
     return this._title;
   }
 
-  set title(value: string) {
+  public set title(value: string) {
     this._title = value;
   }
 
-  get id(): string {
+  public get id(): string {
     return this._id;
   }
 
@@ -49,7 +49,7 @@ export class TaskModel {
   private _startDate: Date;
   private _endDate: Date;
 
-  constructor(
+  public constructor(
     title: string,
     description: string,
     status: TaskStatusEnum,

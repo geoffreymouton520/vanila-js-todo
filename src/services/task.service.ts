@@ -1,3 +1,4 @@
+import { ITaskJson } from '../models/task-json.model';
 import { TaskModel } from '../models/task.model';
 
 export class TaskService {
@@ -6,7 +7,7 @@ export class TaskService {
   private readonly _tasksChangedEventName = 'tasks-changed';
   private readonly tasksChangedEvent: Event;
 
-  constructor() {
+  public constructor() {
     this.eventsDiv = document.createElement('div');
     this.eventsDiv.id = 'task-service';
     this.tasksChangedEvent = new Event(this._tasksChangedEventName);
@@ -15,9 +16,9 @@ export class TaskService {
     if (!taskJson) {
       return;
     }
-    const jsonArray: Array<any> = JSON.parse(taskJson);
+    const jsonArray: Array<ITaskJson> = JSON.parse(taskJson);
 
-    this.tasks = jsonArray.map((value: any) => {
+    this.tasks = jsonArray.map((value: ITaskJson) => {
       return new TaskModel(
         value._title,
         value._description,
