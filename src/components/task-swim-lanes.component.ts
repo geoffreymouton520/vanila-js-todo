@@ -3,10 +3,12 @@ import { TodoTasksComponent } from './todo-tasks.component';
 import { TaskService } from '../services/task.service';
 import { NotificationService } from '../services/notification.service';
 import { InProgressTasksComponent } from './in-progress-tasks.component';
+import { CompletedTasksComponent } from './completed-tasks.component';
 
 export class TaskSwimLanesComponent implements IComponent {
   private readonly _todoTaskComponent: TodoTasksComponent;
   private readonly _inProgressTaskComponent: InProgressTasksComponent;
+  private readonly _completedTaskComponent: CompletedTasksComponent;
 
   public constructor(
     taskService: TaskService,
@@ -20,11 +22,16 @@ export class TaskSwimLanesComponent implements IComponent {
       taskService,
       notificationService
     );
+    this._completedTaskComponent = new CompletedTasksComponent(
+      taskService,
+      notificationService
+    );
   }
 
   public bind() {
     this._todoTaskComponent.bind();
     this._inProgressTaskComponent.bind();
+    this._completedTaskComponent.bind();
   }
 
   public render(): string {
@@ -33,10 +40,7 @@ export class TaskSwimLanesComponent implements IComponent {
     <div class="row">
       ${this._todoTaskComponent.render()}
       ${this._inProgressTaskComponent.render()}    
-        <div id="completed-tasks" class="column">
-            <h3>Completed</h3>
-            <div class="card"></div>
-        </div>
+      ${this._completedTaskComponent.render()}    
         <div id="cancelled-tasks" class="column">
             <h3>Cancelled</h3>
             <div class="card"></div>
