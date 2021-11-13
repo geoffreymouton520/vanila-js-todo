@@ -2,20 +2,17 @@ import { IComponent } from './component';
 import { TodoTasksComponent } from './todo-tasks.component';
 import { TaskService } from '../services/task.service';
 import { NotificationService } from '../services/notification.service';
-import { TemplateService } from '../services/template.service';
 
 export class TaskSwimLanesComponent implements IComponent {
   private readonly _todoTaskComponent: TodoTasksComponent;
 
   public constructor(
     taskService: TaskService,
-    notificationService: NotificationService,
-    templateService: TemplateService
+    notificationService: NotificationService
   ) {
     this._todoTaskComponent = new TodoTasksComponent(
       taskService,
-      notificationService,
-      templateService
+      notificationService
     );
   }
 

@@ -3,15 +3,14 @@ import { IComponent } from './component';
 import { TaskModel } from '../models/task.model';
 import { TaskStatusEnum } from '../models/task-status.enum';
 import { NotificationService } from '../services/notification.service';
-import { TemplateService } from '../services/template.service';
+import { TaskCardComponent } from './task-card.component';
 
 export class TodoTasksComponent implements IComponent {
   private list?: HTMLDivElement;
 
   public constructor(
     private readonly _taskService: TaskService,
-    private readonly _notificationService: NotificationService,
-    private readonly _templateService: TemplateService
+    private readonly _notificationService: NotificationService
   ) {}
 
   public bind = (): void => {
@@ -21,9 +20,9 @@ export class TodoTasksComponent implements IComponent {
   };
 
   public render(): string {
-    return ` <div id="todo-tasks" class="column">
+    return ` <div id='todo-tasks' class='column'>
             <h3>Todo</h3>
-            <div id="todo-tasks-list" class="card">
+            <div id='todo-tasks-list' class='card'>
             </div>
         </div>`;
   }
@@ -35,65 +34,21 @@ export class TodoTasksComponent implements IComponent {
     const tasks = this._taskService
       .getAll()
       .filter((value: TaskModel) => value.status === TaskStatusEnum.Todo);
-    const taskCards = tasks.map(this._templateService.generateTaskCardTemplate);
 
-    this.list.innerHTML = taskCards.join('');
-
-    const startButtons: Array<HTMLButtonElement> = Array.from(
-      document.getElementsByClassName(
-        'todo-tasks-list-start'
-      ) as HTMLCollectionOf<HTMLButtonElement>
+    const taskCardComponents = tasks.map(
+      (task: TaskModel) =>
+        new TaskCardComponent(
+          task,
+          this._taskService,
+          this._notificationService
+        )
     );
 
-    const cancelButtons: Array<HTMLButtonElement> = Array.from(
-      document.getElementsByClassName(
-        'todo-tasks-list-cancel'
-      ) as HTMLCollectionOf<HTMLButtonElement>
-    );
-
-    startButtons.map(this.initStartButtons);
-    cancelButtons.map(this.initCancelButtons);
-  };
-
-  private readonly initStartButtons = (button: HTMLButtonElement) => {
-    button.addEventListener('click', this.startClicked);
-  };
-
-  private readonly initCancelButtons = (button: HTMLButtonElement) => {
-    button.addEventListener('click', this.cancelClicked);
-  };
-
-  private readonly startClicked = (ev: MouseEvent): void => {
-    const id = (ev.target as HTMLButtonElement).getAttribute('data-task-id');
-    if (!id) {
-      this._notificationService.error('Could not find task id');
-      return;
-    }
-    this.startTask(id);
-  };
-
-  private readonly cancelClicked = (ev: MouseEvent): void => {
-    const id = (ev.target as HTMLButtonElement).getAttribute('data-task-id');
-    if (!id) {
-      this._notificationService.error('Could not find task id');
-      return;
-    }
-    this.cancelTask(id);
-  };
-
-  private readonly startTask = (id: string): void => {
-    try {
-      this._taskService.startTask(id);
-    } catch (e) {
-      this._notificationService.error((e as Error).message);
-    }
-  };
-
-  private readonly cancelTask = (id: string): void => {
-    try {
-      this._taskService.cancelTask(id);
-    } catch (e) {
-      this._notificationService.error((e as Error).message);
-    }
+    this.list.innerHTML = taskCardComponents
+      .map((card: TaskCardComponent) => {
+        return card.render();
+      })
+      .join('');
+    taskCardComponents.forEach((card: TaskCardComponent) => card.bind());
   };
 }

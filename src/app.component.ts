@@ -2,7 +2,6 @@ import { CreateTaskComponent } from './components/create-task.component';
 import { TaskService } from './services/task.service';
 import { NotificationService } from './services/notification.service';
 import { TaskSwimLanesComponent } from './components/task-swim-lanes.component';
-import { TemplateService } from './services/template.service';
 import { IComponent } from './components/component';
 
 export class AppComponent implements IComponent {
@@ -11,8 +10,7 @@ export class AppComponent implements IComponent {
 
   public constructor(
     taskService: TaskService,
-    notificationService: NotificationService,
-    templateService: TemplateService
+    notificationService: NotificationService
   ) {
     this._createTaskComponent = new CreateTaskComponent(
       taskService,
@@ -20,8 +18,7 @@ export class AppComponent implements IComponent {
     );
     this._taskSwimLanesComponent = new TaskSwimLanesComponent(
       taskService,
-      notificationService,
-      templateService
+      notificationService
     );
   }
 
