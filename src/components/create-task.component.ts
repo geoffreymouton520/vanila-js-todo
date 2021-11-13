@@ -17,7 +17,7 @@ export class CreateTaskComponent implements IComponent {
     private readonly _notificationService: NotificationService
   ) {}
 
-  public init(): void {
+  public bind(): void {
     this.form = document.getElementById('create-task-form') as HTMLFormElement;
 
     this.title = document.getElementById(
@@ -42,7 +42,36 @@ export class CreateTaskComponent implements IComponent {
     });
   }
 
+  public render(): string {
+    return `<div id='create-task' class='card'>
+    <h2>Create New Task</h2>
+    <form id='create-task-form'>
+        <div class='form-group'>
+            <label for='create-task-title'>Title</label>
+            <input type='text' name='title' id='create-task-title'>
+        </div>
+        <div class='form-group'>
+            <label for='create-task-description'>Description</label>
+            <textarea rows='3' name='description' id='create-task-description'></textarea>
+        </div>
+        <div class='form-group'>
+            <label for='create-task-start-date'>Start Date</label>
+            <input type='date' name='start-date' id='create-task-start-date'>
+        </div>
+        <div class='form-group'>
+            <label for='create-task-end-date'>End Date</label>
+            <input type='date' name='end-date' id='create-task-end-date'>
+        </div>
+        <div class='form-btn-group'>
+            <button type='reset' class='btn'>Clear</button>
+            <button type='submit' class='btn' id='create-task-submit'>Submit</button>
+        </div>
+    </form>
+</div>`;
+  }
+
   private submit(ev: MouseEvent): void {
+    ev.preventDefault();
     if (
       !this.form ||
       !this.title ||
@@ -54,7 +83,6 @@ export class CreateTaskComponent implements IComponent {
       this._notificationService.error('The required field are missing values.');
       return;
     }
-    ev.preventDefault();
     const task = new TaskModel(
       this.title.value,
       this.description.value,

@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
     mode: 'development',
     watch: true,
-    entry: './src/app.ts',
+    entry: './src/main.ts',
     devtool: 'inline-source-map',
     module: {
         rules: [
@@ -29,7 +29,7 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js'],
     },
     output: {
-        filename: 'app.js',
+        filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
     },
 };

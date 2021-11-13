@@ -14,11 +14,19 @@ export class TodoTasksComponent implements IComponent {
     private readonly _templateService: TemplateService
   ) {}
 
-  public init = (): void => {
+  public bind = (): void => {
     this.list = document.getElementById('todo-tasks-list') as HTMLDivElement;
     this._taskService.addTasksChangedListener(this.loadTasks);
     this.loadTasks();
   };
+
+  public render(): string {
+    return ` <div id="todo-tasks" class="column">
+            <h3>Todo</h3>
+            <div id="todo-tasks-list" class="card">
+            </div>
+        </div>`;
+  }
 
   private readonly loadTasks = () => {
     if (!this.list) {

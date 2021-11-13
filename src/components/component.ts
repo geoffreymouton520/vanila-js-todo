@@ -1,3 +1,4 @@
 export interface IComponent {
-  init(): void;
+  bind?(): void;
+  render(): string;
 }
