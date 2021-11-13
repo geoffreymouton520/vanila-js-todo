@@ -17,7 +17,7 @@
     "removeComments": false,
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": false,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "allowUnreachableCode": false,
     "allowJs": false,
     "noUnusedLocals": true,

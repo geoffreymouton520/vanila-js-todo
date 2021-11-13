@@ -65,15 +65,24 @@ export class TaskModel {
     this._endDate = endDate;
   }
 
-  public markAsInProgress(): void {
-    this._status = TaskStatusEnum.InProgress;
-  }
-
   public complete(): void {
+    if (this._status !== TaskStatusEnum.InProgress) {
+      throw new Error(
+        'Invalid task status change. Only tasks with a status of in progress can be completed.'
+      );
+    }
     this._status = TaskStatusEnum.Completed;
   }
 
   public cancel(): void {
+    if (
+      this._status === TaskStatusEnum.Cancelled ||
+      this._status === TaskStatusEnum.Completed
+    ) {
+      throw new Error(
+        'Invalid task status change. Completed and cancelled tasks cannot be cancalled.'
+      );
+    }
     this._status = TaskStatusEnum.Cancelled;
   }
 

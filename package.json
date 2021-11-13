@@ -1,7 +1,7 @@
 {
   "name": "vanila-js-todo",
   "version": "1.0.0",
-  "description": "A task tracker built with vanila typescript",
+  "description": "A task tracker built with vanilla typescript",
   "main": "index.html",
   "scripts": {
     "build": "webpack",
@@ -9,6 +9,11 @@
     "prettier:lint": "prettier --check %npm_package_config_scanPath%",
     "eslint:lint": "eslint \"src/**/*.ts\"",
     "eslint:fix": "eslint --fix 'src/**/*.ts'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run eslint:lint"
+    }
   },
   "config": {
     "scanPath": "\"{,src/**/}*.{md,json,ts,css,scss}\""
@@ -32,6 +37,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.0",
     "eslint-plugin-unicorn": "^38.0.1",
+    "husky": "7.0.4",
+    "lint-staged": "11.2.6",
     "prettier": "^2.4.1",
     "sass": "^1.43.4",
     "sass-loader": "^12.3.0",

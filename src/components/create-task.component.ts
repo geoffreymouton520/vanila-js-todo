@@ -2,16 +2,20 @@ import { TaskModel } from '../models/task.model';
 import { TaskStatusEnum } from '../models/task-status.enum';
 import { TaskService } from '../services/task.service';
 import { IComponent } from './component';
+import { NotificationService } from '../services/notification.service';
 
 export class CreateTaskComponent implements IComponent {
-  private form: HTMLFormElement;
-  private title: HTMLInputElement;
-  private description: HTMLTextAreaElement;
-  private startDate: HTMLInputElement;
-  private endDate: HTMLInputElement;
-  private submitButton: HTMLButtonElement;
+  private form?: HTMLFormElement;
+  private title?: HTMLInputElement;
+  private description?: HTMLTextAreaElement;
+  private startDate?: HTMLInputElement;
+  private endDate?: HTMLInputElement;
+  private submitButton?: HTMLButtonElement;
 
-  public constructor(private readonly _taskService: TaskService) {}
+  public constructor(
+    private readonly _taskService: TaskService,
+    private readonly _notificationService: NotificationService
+  ) {}
 
   public init(): void {
     this.form = document.getElementById('create-task-form') as HTMLFormElement;
@@ -39,6 +43,17 @@ export class CreateTaskComponent implements IComponent {
   }
 
   private submit(ev: MouseEvent): void {
+    if (
+      !this.form ||
+      !this.title ||
+      !this.description ||
+      !this.startDate ||
+      !this.endDate ||
+      !this.isValid()
+    ) {
+      this._notificationService.error('The required field are missing values.');
+      return;
+    }
     ev.preventDefault();
     const task = new TaskModel(
       this.title.value,
@@ -49,5 +64,14 @@ export class CreateTaskComponent implements IComponent {
     );
     this._taskService.create(task);
     this.form.reset();
+  }
+
+  private isValid(): boolean {
+    return (
+      !!this.title?.value &&
+      !!this.description?.value &&
+      !!this.startDate?.value &&
+      !!this.endDate?.value
+    );
   }
 }

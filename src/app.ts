@@ -2,11 +2,21 @@ import './assets/app.scss';
 import { CreateTaskComponent } from './components/create-task.component';
 import { TaskService } from './services/task.service';
 import { TodoTasksComponent } from './components/todo-tasks.component';
+import { NotificationService } from './services/notification.service';
 
+// Services
 const taskService = new TaskService();
+const notificationService = new NotificationService();
 
-const createTaskComponent = new CreateTaskComponent(taskService);
+// Components
+const createTaskComponent = new CreateTaskComponent(
+  taskService,
+  notificationService
+);
+const todoTaskComponent = new TodoTasksComponent(
+  taskService,
+  notificationService
+);
+
 createTaskComponent.init();
-
-const todoTaskComponent = new TodoTasksComponent(taskService);
 todoTaskComponent.init();

@@ -44,8 +44,20 @@ export class TaskService {
   }
 
   public startTask(id: string): void {
-    const task: TaskModel = this.getOne(id);
+    const task: TaskModel | undefined = this.getOne(id);
+    if (!task) {
+      throw new Error(`Could not find task with id ${id}.`);
+    }
     task.start();
+    this.sync();
+  }
+
+  public cancelTask(id: string): void {
+    const task: TaskModel | undefined = this.getOne(id);
+    if (!task) {
+      throw new Error(`Could not find task with id ${id}.`);
+    }
+    task.cancel();
     this.sync();
   }
 
