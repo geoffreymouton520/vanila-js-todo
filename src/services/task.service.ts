@@ -61,6 +61,15 @@ export class TaskService {
     this.sync();
   }
 
+  public completeTask(id: string): void {
+    const task: TaskModel | undefined = this.getOne(id);
+    if (!task) {
+      throw new Error(`Could not find task with id ${id}.`);
+    }
+    task.complete();
+    this.sync();
+  }
+
   public addTasksChangedListener(callback: () => void): void {
     this.eventsDiv.addEventListener(
       this._tasksChangedEventName,

@@ -66,7 +66,7 @@ export class TaskModel {
   }
 
   public complete(): void {
-    if (this._status !== TaskStatusEnum.InProgress) {
+    if (!this.canBeCompleted()) {
       throw new Error(
         'Invalid task status change. Only tasks with a status of in progress can be completed.'
       );
@@ -75,10 +75,7 @@ export class TaskModel {
   }
 
   public cancel(): void {
-    if (
-      this._status === TaskStatusEnum.Cancelled ||
-      this._status === TaskStatusEnum.Completed
-    ) {
+    if (!this.canBeCancelled()) {
       throw new Error(
         'Invalid task status change. Completed and cancelled tasks cannot be cancalled.'
       );
@@ -87,11 +84,26 @@ export class TaskModel {
   }
 
   public start() {
-    if (this._status !== TaskStatusEnum.Todo) {
+    if (!this.canBeStarted()) {
       throw new Error(
         'Invalid task status change. Only tasks with a status of todo can be started.'
       );
     }
     this._status = TaskStatusEnum.InProgress;
+  }
+
+  public canBeStarted(): boolean {
+    return this._status === TaskStatusEnum.Todo;
+  }
+
+  public canBeCancelled(): boolean {
+    return (
+      this._status !== TaskStatusEnum.Cancelled &&
+      this._status !== TaskStatusEnum.Completed
+    );
+  }
+
+  public canBeCompleted(): boolean {
+    return this._status === TaskStatusEnum.InProgress;
   }
 }
