@@ -62,7 +62,7 @@ export class CreateTaskComponent implements IComponent {
             <label for='create-task-end-date'>End Date</label>
             <input type='date' name='end-date' id='create-task-end-date'>
         </div>
-        <div class='form-btn-group'>
+        <div class='btn-group'>
             <button type='reset' class='btn'>Clear</button>
             <button type='submit' class='btn' id='create-task-submit'>Submit</button>
         </div>

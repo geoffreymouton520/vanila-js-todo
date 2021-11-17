@@ -25,8 +25,12 @@ export class AppComponent implements IComponent {
   public render(): string {
     return `
         <h1>Task Management</h1>
-        ${this._createTaskComponent.render()}
-        ${this._taskSwimLanesComponent.render()}
+        <div class='row flex-center'>
+          ${this._createTaskComponent.render()}
+        </div>
+        <div class='row'>
+          ${this._taskSwimLanesComponent.render()}
+        </div>
       `;
   }
 

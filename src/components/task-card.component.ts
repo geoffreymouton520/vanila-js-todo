@@ -33,12 +33,10 @@ export class TaskCardComponent implements IComponent {
   public render(): string {
     return `
         <div class='card'>
-            <div>
-                <h4>${this._task.title}</h4>
-                <div>${this._task.startDate} - ${this._task.endDate}</div>
-            </div>
+            <h4>${this._task.title}</h4>
             <div class='description'>${this._task.description}</div>
-            <div>${this.renderCancelButton()}${this.renderStartButton()}${this.renderCompleteButton()}</div>
+            <div>${this._task.startDate.toDateString()} - ${this._task.endDate.toDateString()}</div>
+            <div class='btn-group'>${this.renderCancelButton()}${this.renderStartButton()}${this.renderCompleteButton()}</div>
         </div>
     `;
   }
